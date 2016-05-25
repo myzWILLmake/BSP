@@ -1,26 +1,14 @@
 <template>
-  <p>{{data}}, {{name}}!</p>
+  <!-- main view -->
+  <router-view
+    class="view"
+    keep-alive>
+  </router-view>
 </template>
 
 <script>
-  export default {
-
-    name: 'Main',
-
-    data () {
-      return {
-        data: 'Hello World'
-      }
-    },
-
-    computed: {
-      name () {
-        return 'Yunze'
-      }
-    }
-
-  }
 </script>
 
 <style lang="stylus">
+  @import '~vux/vux.css'
 </style>
