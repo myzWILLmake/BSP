@@ -1,9 +1,11 @@
 <template>
+  <div>
   <!-- main view -->
-  <router-view
-    class="view"
-    keep-alive>
-  </router-view>
+    <router-view
+      class="view"
+      keep-alive>
+    </router-view>
+  </div>
 </template>
 
 <script>

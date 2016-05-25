@@ -2,8 +2,8 @@
   <div>
     <group title="账户信息">
       <x-input title="邮箱" placeholder="注册邮箱" is-type="email" :value.sync="mail"></x-input>
-      <x-input title="密码" placeholder="输入密码" :min="8" max="32" :value.sync="password"></x-input>
-      <x-input title="确认" placeholder="确认密码" :min="8" max="32" :equal-with="password"></x-input>
+      <x-input title="密码" placeholder="输入密码" :min="8" :max="32" :value.sync="password"></x-input>
+      <x-input title="确认" placeholder="确认密码" :min="8" :max="32" :equal-with="password"></x-input>
     </group>
     <group title="个人信息">
       <x-input title="昵称" placeholder="输入昵称" :value.sync="nickname"></x-input>
