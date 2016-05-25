@@ -6,6 +6,10 @@ import LogView from './components/LogView.vue'
 import RegisterView from './components/RegisterView.vue'
 import MainView from './components/MainView.vue'
 
+import AccountView from './components/MainView/AccountView.vue'
+import ChatsView from './components/MainView/ChatsView.vue'
+import ContactsView from './components/MainView/ContactsView.vue'
+
 Vue.use(Router)
 
 var router = new Router()
@@ -21,7 +25,18 @@ router.map({
   },
   '/main/:user_id': {
     name: 'main',
-    component: MainView
+    component: MainView,
+    subRoutes: {
+      '/chats': {
+        component: ChatsView
+      },
+      '/contacts': {
+        component: ContactsView
+      },
+      '/account': {
+        component: AccountView
+      }
+    }
   }
 })
 

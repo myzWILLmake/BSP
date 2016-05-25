@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div id="icon-div">
+    <div id="logo-div">
       <icon name="weixin" scale="5"></icon>
+      <br />
+      <p id="logo-text">WeMessage</p>
     </div>
     <group>
       <x-input title="账号" placeholder="请输入登录邮箱" is-type="email" :value.sync="mail" v-ref:mail></x-input>
@@ -17,9 +19,6 @@
         </flexbox-item>
       </flexbox>
     </group>
-    <p>{{mail}}</p>
-    <br />
-    <p>{{password}}</p>
   </div>
 </template>
 
@@ -56,7 +55,9 @@
         this.$route.router.go({name: "register"});
       },
       login () {
-        this.$route.router.go({name: "main", params: {user_id: this.mail}});
+        if (this.$refs.mail.valid === true && this.$refs.password.valid === true) {
+          this.$route.router.go({name: "main", params: {user_id: this.mail}});
+        }
       }
     }
 
@@ -66,8 +67,11 @@
 <style lang="stylus">
   @import '~vux/vux.css'
 
-  #icon-div
+  #logo-div
     margin-top 10px
     text-align center
     color #228B22
+
+  #logo-text
+    font-size 2em
 </style>
