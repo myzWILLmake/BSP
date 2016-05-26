@@ -4,11 +4,13 @@ import Router from 'vue-router'
 import App from './components/App.vue'
 import LogView from './components/LogView.vue'
 import RegisterView from './components/RegisterView.vue'
-import MainView from './components/MainView.vue'
 
-import AccountView from './components/MainView/AccountView.vue'
-import ChatsView from './components/MainView/ChatsView.vue'
-import ContactsView from './components/MainView/ContactsView.vue'
+import MainView from './components/MainView/index.vue'
+import Account from './components/MainView/Account.vue'
+import ChatsList from './components/MainView/ChatsList.vue'
+import Contacts from './components/MainView/Contacts.vue'
+
+import ChatRoomView from './components/ChatRoomView.vue'
 
 Vue.use(Router)
 
@@ -23,20 +25,24 @@ router.map({
     name: 'register',
     component: RegisterView
   },
-  '/main/:user_id': {
+  '/main': {
     name: 'main',
     component: MainView,
     subRoutes: {
       '/chats': {
-        component: ChatsView
+        component: ChatsList
       },
       '/contacts': {
-        component: ContactsView
+        component: Contacts
       },
       '/account': {
-        component: AccountView
+        component: Account
       }
     }
+  },
+  '/chats/:person_id':{
+    name: 'room',
+    component: ChatRoomView
   }
 })
 

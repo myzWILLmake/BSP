@@ -1,0 +1,23 @@
+.chat_item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.chat_item_img {
+  margin: 10px;
+  border-radius: 50%;
+  border: 1px solid;
+  border-color: rgba(236,236,236,0.44);
+  max-height: 40px;
+  max-width: 40px;
+}
+
+.chat_item_message {
+  border-radius: 15%;
+  word-wrap: break-word;
+  word-break: normal;
+  margin: 10px;
+  background: #F5F5F5;
+  padding: 10px;
+}

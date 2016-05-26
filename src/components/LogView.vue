@@ -56,7 +56,11 @@
       },
       login () {
         if (this.$refs.mail.valid === true && this.$refs.password.valid === true) {
-          this.$route.router.go({name: "main", params: {user_id: this.mail}});
+          window.user = {
+            id: '12351251',
+            mail: this.mail
+          }
+          this.$route.router.go({path: '/main/chats'});
         }
       }
     }
