@@ -21,3 +21,7 @@
   background: #F5F5F5;
   padding: 10px;
 }
+
+.chat-list-item-text {
+  margin-right: 30px
+}

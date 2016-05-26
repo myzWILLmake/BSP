@@ -46,8 +46,5 @@ router.map({
   }
 })
 
-router.redirect({
-  '*': '/login'
-})
 
 router.start(App, '#app')

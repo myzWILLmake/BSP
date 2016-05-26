@@ -1,13 +1,21 @@
 <template>
   <div>
-    <panel :list="list | orderBy 'time' " :type="type"></panel>
-    <x-button @click="test">测试</x-button>
+    <scroller lock-x>
+      <div>
+        <div v-for="item in list" style="margin: 5px; overflow: hidden;">
+          <chats-list-item :id="item.id" :name="item.name" :time="item.last" :text="item.message"></chats-list-item>
+        </div>
+      </div>
+    </scroller>
   </div>
 </template>
 
 <script>
   import Panel from 'vux/components/panel'
   import XButton from 'vux/components/x-button'
+  import Scroller from 'vux/components/scroller'
+
+  import ChatsListItem from './ChatsListItem.vue'
 
   export default {
 
@@ -15,13 +23,78 @@
 
     components: {
       Panel,
-      XButton
+      XButton,
+      Scroller,
+      ChatsListItem
     },
 
     data () {
       return {
-        type: '1',
-        list: []
+        list: [{
+          id: '324adsga6',
+          name: '小明0',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 23,
+          message: 'asdgasdgaawefafsdg'
+        },{
+          id: '32426',
+          name: '小明1',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 10,
+          message: 'asdgasdgsasdfdafadfasdgasdfasdfasdfdafs阿迪阿斯的那该死的更那啥的观看死得更快但凡跟爱的发的所发生的噶'
+        },{
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },
+        {
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },
+        {
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },
+        {
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },
+        {
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },{
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },{
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        },{
+          id: '3245s1aq6',
+          name: '小明2',
+          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+          last: 99,
+          message: 'asdgassaddgasdg'
+        }]
       }
     },
 
@@ -42,17 +115,6 @@
           url: w.id
         }
         this.list.push(x)
-      }
-    },
-
-    events: {
-      'on-click-item' (e) {
-        this.$route.router.go({
-          path: '/chats/' + e.url,
-          params: {
-            person_id: e.url
-          }
-        })
       }
     }
   }

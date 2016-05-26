@@ -1,9 +1,13 @@
 <template>
   <div>
     <x-header>{{person_id}}</x-header>
-    <div v-for="message in messages">
-      <chat-item :type="message.type" :message="message.text" :id="message.type ? '../../static/assets/tabbar/account.png' : '../../static/assets/tabbar/chats.png'"></chat-item>
-    </div>
+    <scroller lock-x>
+      <div>
+        <div v-for="message in messages" style="overflow: hidden">
+          <chat-item :type="message.type" :message="message.text" :id="message.type ? '../../static/assets/tabbar/account.png' : '../../static/assets/tabbar/chats.png'"></chat-item>
+        </div>
+      </div>
+    </scroller>
     <div id="send-div">
       <br />
       <x-input :required="false" :show-clear="false">
@@ -18,6 +22,7 @@
   import XInput from 'vux/components/x-input'
   import XButton from 'vux/components/x-button'
   import Divider from 'vux/components/divider'
+  import Scroller from 'vux/components/Scroller'
 
   import ChatItem from './ChatItem.vue'
 
@@ -30,7 +35,8 @@
       ChatItem,
       XInput,
       XButton,
-      Divider
+      Divider,
+      Scroller
     },
 
     data () {
