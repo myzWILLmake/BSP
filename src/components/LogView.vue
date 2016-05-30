@@ -19,6 +19,9 @@
         </flexbox-item>
       </flexbox>
     </group>
+
+    <toast :show.sync="showSucc">登录成功</toast>
+    <toast :show.sync="showError" type="warn">{{errorInfo}}</toast>
   </div>
 </template>
 
@@ -29,6 +32,8 @@
   import Flexbox from 'vux/components/flexbox'
   import FlexboxItem from 'vux/components/flexbox-item'
   import Icon from 'vue-awesome/dist/vue-awesome'
+  import Toast from 'vux/components/toast'
+  import io from 'socket.io-client'
 
   export default {
 
@@ -40,13 +45,18 @@
       XButton,
       Flexbox,
       FlexboxItem,
-      Icon
+      Icon,
+      Toast,
+      io
     },
 
     data () {
       return {
         mail: "",
-        password: ""
+        password: "",
+        showSucc: false,
+        showError: false,
+        errorInfo: ""
       }
     },
 
@@ -55,16 +65,39 @@
         this.$route.router.go({name: "register"});
       },
       login () {
-        if (this.$refs.mail.valid === true && this.$refs.password.valid === true) {
-          window.user = {
-            id: '12351251',
-            mail: this.mail
+        if (this.valid) {
+          let userAuth = {
+            mail: this.mail,
+            password: this.password
           }
-          this.$route.router.go({path: '/main/chats'});
+          this.$http.post('/auth', userAuth).then(function(res) {
+            console.log(res);
+            let data = res.data
+            if (data.succ) {
+              window.user = data.data
+              window.socket = io('http://localhost:9000')
+              window.socket.emit('log', {_id: window.user._id})
+              this.showSucc = true
+              let router = this.$route.router
+              setTimeout(function() {
+                router.go({path: '/main/chats'});
+              }, 1000)
+            } else {
+              this.errorInfo = data.error
+              this.showError = true
+            }
+          }, function(err) {console.log(err)})
+
         }
+
+      }
+    },
+
+    computed: {
+      valid () {
+        return this.$refs.mail.valid === true && this.$refs.password.valid === true
       }
     }
-
   }
 </script>
 

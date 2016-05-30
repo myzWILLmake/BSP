@@ -2,7 +2,7 @@
   <div>
     <a @click.prevent="onItemClick(item)" class="weui_media_box weui_media_appmsg">
       <div class="weui_media_hd">
-        <img class="weui_media_appmsg_thumb" src="../../../static/assets/tabbar/account.png">
+        <img class="weui_media_appmsg_thumb" :src="'/assets/img/' + avatar + '.jpg'">
       </div>
       <div class="weui_media_bd chat-list-item-text">
         <h4 class="weui_media_title">{{name}}</h4>
@@ -20,8 +20,9 @@
     props: {
       id: String,
       name: String,
-      time: Number,
-      text: String
+      time: Date,
+      text: String,
+      avatar: String
     },
 
     methods: {

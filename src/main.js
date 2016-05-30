@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Resource from 'vue-resource'
 
 import App from './components/App.vue'
 import LogView from './components/LogView.vue'
@@ -13,6 +14,7 @@ import Contacts from './components/MainView/Contacts.vue'
 import ChatRoomView from './components/ChatRoomView.vue'
 
 Vue.use(Router)
+Vue.use(Resource)
 
 var router = new Router()
 
@@ -45,6 +47,5 @@ router.map({
     component: ChatRoomView
   }
 })
-
 
 router.start(App, '#app')

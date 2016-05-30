@@ -3,7 +3,7 @@
     <scroller lock-x>
       <div>
         <div v-for="item in list" style="margin: 5px; overflow: hidden;">
-          <chats-list-item :id="item.id" :name="item.name" :time="item.last" :text="item.message"></chats-list-item>
+          <chats-list-item :id="item._id" :name="item.name" :time="item.last" :text="item.message" :avatar="item.avatar"></chats-list-item>
         </div>
       </div>
     </scroller>
@@ -31,90 +31,77 @@
     data () {
       return {
         list: [{
-          id: '324adsga6',
-          name: '小明0',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 23,
-          message: 'asdgasdgaawefafsdg'
-        },{
-          id: '32426',
-          name: '小明1',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 10,
-          message: 'asdgasdgsasdfdafadfasdgasdfasdfasdfdafs阿迪阿斯的那该死的更那啥的观看死得更快但凡跟爱的发的所发生的噶'
-        },{
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },
-        {
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },
-        {
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },
-        {
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },
-        {
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },{
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },{
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        },{
-          id: '3245s1aq6',
-          name: '小明2',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgassaddgasdg'
-        }]
+          _id: "574c6bab7ad160b930dc75d4",
+          name: "Yunze",
+          last: new Date(),
+          message: "TEST!",
+          avatar: "3"
+        }],
+        init: false
       }
     },
 
     methods: {
-      test () {
-        let w = {
-          id: '32456',
-          name: '小明',
-          avatar: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-          last: 99,
-          message: 'asdgasdgasdg'
+      initList () {
+        let unread = window.user.unread
+        if (unread !== undefined) {
+          for (let message of unread) {
+            this.$http.post('/person', {_id: message.from}).then(function(res) {
+              let data = res.data
+              if (data.succ) {
+                let person = data.data
+                this.list.push({
+                  _id: person._id,
+                  name: person.nickname,
+                  last: message.time.getTime(),
+                  message: message.content,
+                  avatar: person.avatar
+                })
+              } else {
+                console.log(data.error)
+              }
+            }, function(err) {console.log(err)})
+          }
         }
-        let x = {
-          src: w.avatar,
-          title: w.name,
-          time: w.last,
-          desc: w.message,
-          url: w.id
+      },
+
+      initSocket () {
+        let socket = window.socket
+        socket.on('new message', function(data) {
+          let message = data
+          this.$http.post('/person', {_id: message.from}).then(function(res) {
+            let data = res.data
+            if (data.succ) {
+              let person = data.data
+              this.list.push({
+                _id: person._id,
+                name: person.nickname,
+                last: message.time.getTime(),
+                message: message.content,
+                avatar: person.avatar
+              })
+            } else {
+              console.log(data.error)
+            }
+          }, function(err) {console.log(err)})
+        })
+      }
+
+    },
+
+    route: {
+      data ({ to }) {
+        console.log(to)
+        if (this.init == false) {
+          console.log("ChatsList!!!!")
+          this.initList()
+          this.initSocket()
+          this.init = true
         }
-        this.list.push(x)
+        return {
+          list: this.list,
+          init: this.init
+        }
       }
     }
   }

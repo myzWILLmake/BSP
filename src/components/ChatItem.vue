@@ -1,6 +1,6 @@
 <template>
   <div class="chat_item" :style="type ? orientL : orientR">
-    <img :src="id" class="chat_item_img"></img>
+    <img :src="'/assets/img/' + id + '.jpg'" class="chat_item_img"></img>
     <div class="chat_item_message" :style="type ? colorL : colorR">
       <span>{{message}}</span>
     </div>
