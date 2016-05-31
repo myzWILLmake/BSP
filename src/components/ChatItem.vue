@@ -17,10 +17,10 @@
 
     data () {
       return {
-        orientL: {
+        orientR: {
           flexDirection: 'row-reverse'
         },
-        orientR: {
+        orientL: {
           flexDirection: 'row'
         },
         colorL: {

@@ -9,20 +9,22 @@
       transition-mode="out-in">
     </router-view>
 
-    <tabbar>
-      <tabbar-item selected @click="switchTab('chats')">
-        <img slot="icon" src="../../../static/assets/tabbar/chats.png">
-        <span slot="label">消息</span>
-      </tabbar-item>
-      <tabbar-item @click="switchTab('contacts')">
-        <img slot="icon" src="../../../static/assets/tabbar/contacts.png">
-        <span slot="label">好友</span>
-      </tabbar-item>
-      <tabbar-item @click="switchTab('account')">
-        <img slot="icon" src="../../../static/assets/tabbar/account.png">
-        <span slot="label">我</span>
-      </tabbar-item>
-    </tabbar>
+    <div id="tabbar">
+      <tabbar>
+        <tabbar-item selected @click="switchTab('chats')">
+          <img slot="icon" src="../../../static/assets/tabbar/chats.png">
+          <span slot="label">消息</span>
+        </tabbar-item>
+        <tabbar-item @click="switchTab('contacts')">
+          <img slot="icon" src="../../../static/assets/tabbar/contacts.png">
+          <span slot="label">好友</span>
+        </tabbar-item>
+        <tabbar-item @click="switchTab('account')">
+          <img slot="icon" src="../../../static/assets/tabbar/account.png">
+          <span slot="label">我</span>
+        </tabbar-item>
+      </tabbar>
+    </div>
   </div>
 </template>
 
@@ -51,4 +53,9 @@
 
 <style lang="stylus">
   @import '~vux/vux.css'
+
+  #tabbar
+    position fixed
+    bottom 0
+    width 100%
 </style>

@@ -1,17 +1,21 @@
 <template>
   <div>
-    <x-header>{{person.nickname}}</x-header>
-    <scroller lock-x>
-      <div>
-        <div v-for="message in messages" style="overflow: hidden">
-          <chat-item :type="message.type" :message="message.text" :id="message.id"></chat-item>
-        </div>
-      </div>
-    </scroller>
-    <div id="send-div">
+    <div id="header">
+      <x-header>{{person.nickname}}</x-header>
+    </div>
+    <div>
       <br />
-      <x-input :required="false" :show-clear="false">
-        <x-button type="primary" id="send-button">发送</x-button>
+      <br />
+      <div v-for="message in messages | orderBy 'time'">
+        <chat-item :type="message.type" :message="message.text" :id="message.id"></chat-item>
+      </div>
+      <br />
+      <br />
+      <br id="bottom-br" />
+    </div>
+    <div id="send-div">
+      <x-input :required="false" :show-clear="false" :value.sync="inputMessage">
+        <x-button type="primary" id="send-button" @click="sendMessage">发送</x-button>
       </x-input>
     </div>
   </div>
@@ -42,8 +46,10 @@
     data () {
       return {
         person: {},
+        inputMessage: "",
         // type: 0自己 1对面
-        messages: []
+        messages: [],
+        init: false
       }
     },
 
@@ -56,10 +62,11 @@
           if (data.succ == true) {
             let messageList = data.data
             if (messageList !== undefined) {
-              for (let message in messageList) {
+              for (let index in messageList) {
+                let message = messageList[index]
                 let messageItem = {
                   type: message.from == user._id ? 0 : 1,
-                  time: message.time,
+                  time: new Date(message.time).getTime(),
                   text: message.content,
                   id: message.from == user._id ? user.avatar : person.avatar
                 }
@@ -70,12 +77,48 @@
             console.log(data.error)
           }
         }, function(err){console.log(err)})
+      },
+      sendMessage: function() {
+        let message = {
+          time: new Date().getTime(),
+          from: window.user._id,
+          to: this.person._id,
+          content: this.inputMessage
+        }
+        socket.emit('send message', message)
+        let messageItem = {
+          type: 0,
+          time: new Date(message.time).getTime(),
+          text: message.content,
+          id: window.user.avatar
+        }
+        this.messages.push(messageItem)
+        this.scrollToBottom()
+      },
+      initSocket: function (mod) {
+        let socket = window.socket
+        socket.on('new message', function(data) {
+          let messageItem = {
+            type: 1,
+            time: new Date(data.time).getTime(),
+            text: data.content,
+            id: mod.person.avatar
+          }
+          mod.messages.push(messageItem)
+          mod.scollToBottom()
+        })
+      },
+      scrollToBottom () {
+        setTimeout(function() {
+          let pos = document.getElementById('bottom-br').getBoundingClientRect()
+          window.scroll(0,pos.top)
+        }, 200)
       }
     },
 
     route: {
       data ({ to }) {
-        console.log(to);
+        this.messages = []
         let person_id = to.params.person_id
         this.$http.post('/person', {_id: person_id}).then(function(res) {
           let data = res.data
@@ -89,6 +132,10 @@
             this.getMoreMessage()
           }
         }, function(err){console.log(err)})
+        if (this.init == false) {
+          this.initSocket(this)
+          this.init = true
+        }
         return {
           person: this.person,
           messages: this.messages
@@ -102,10 +149,16 @@
   @import '~vux/vux.css'
   @import '../style.css'
 
+  #header
+    position fixed
+    top 0
+    width 100%
+
   #send-div
-    position absolute
+    position fixed
     bottom 0
     width 100%
+    background white
 
   #send-button
     margin-left 10px

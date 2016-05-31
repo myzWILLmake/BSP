@@ -14,7 +14,6 @@
 }
 
 .chat_item_message {
-  border-radius: 15%;
   word-wrap: break-word;
   word-break: normal;
   margin: 10px;

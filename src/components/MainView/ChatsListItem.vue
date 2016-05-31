@@ -20,7 +20,7 @@
     props: {
       id: String,
       name: String,
-      time: Date,
+      time: Number,
       text: String,
       avatar: String
     },
