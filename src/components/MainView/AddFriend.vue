@@ -16,17 +16,7 @@
         <divider>搜索结果为空</divider>
       </div>
       <div v-for="person in people">
-        <a @click.prevent="selectPerson(person)" >
-          <div class="weui_media_box weui_media_appmsg">
-            <div class="weui_media_hd">
-              <img class="weui_media_appmsg_thumb" :src="'/assets/img/' + person.avatar + '.jpg'">
-            </div>
-            <div class="weui_media_bd chat-list-item-text">
-              <h4 class="weui_media_title">{{person.nickname}}</h4>
-              <p class="weui_media_desc">{{person.desc}}</p>
-            </div>
-          </div>
-        </a>
+        <person-item @click="selectPerson(person)" :nickname="person.nickname" :desc="person.desc" :avatar="person.avatar"></person-item>
       </div>
     </group>
 
@@ -60,6 +50,8 @@
   import Popup from 'vux/components/popup'
   import Selector from 'vux/components/selector'
 
+  import PersonItem from '../PersonItem.vue'
+
 
   export default {
     name: "add-friend",
@@ -72,7 +64,8 @@
       XButton,
       Toast,
       Divider,
-      Selector
+      Selector,
+      PersonItem
     },
 
     data () {

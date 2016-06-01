@@ -5,13 +5,21 @@
     </div>
     <br />
     <br />
-    <search @result-click="resultClick" @on-change="findFriend" :results="searchResults" :value.sync="inputValue"></search>
+    <group>
+      <cell title="新的朋友" v-show="requestNum != 0" @click="checkRequest">
+        <div slot="value">
+          <span class="new-friend-count">{{requestNum}}</span>
+        </div>
+      </cell>
+    </group>
   </div>
 </template>
 
 <script>
   import XHeader from 'vux/components/x-header'
-  import Search from 'vux/components/search'
+  import Group from 'vux/components/group'
+  import Cell from 'vux/components/cell'
+
   import Icon from 'vue-awesome'
 
   export default {
@@ -19,14 +27,15 @@
 
     components: {
       XHeader,
-      Search,
-      Icon
+      Icon,
+      Group,
+      Cell
     },
 
     data () {
       return {
-        searchResults: [],
-        inputValue: ''
+        friends: [],
+        requestNum: 0
       }
     },
 
@@ -34,20 +43,38 @@
       addFriend () {
         this.$route.router.go({path: '/add/friend'})
       },
-      resultClick (item) {
-        alert(JSON.stringify(item))
+      checkRequest() {
+        this.$route.router.go({path: '/new/friends'})
       },
-      findFriend () {
-        this.searchResults = [{
-          index: 0,
-          title: "添加好友: " + this.inputValue
-        },{
-          index: 1,
-          title: this.inputValue + "sacasc"
-        },{
-          index: 2,
-          title: this.inputValue +"asxasf"
-        }]
+      refreshUser() {
+        this.$http.post('/user', {_id: window.user._id}).then(function(res) {
+          let data = res.data
+          if (data.succ) {
+            window.user = data.data
+            if (window.user.friends != undefined) {
+              this.friends = window.user.friends
+            }
+            if (window.user.request != undefined) {
+              this.requestNum = window.user.request.length
+            } else {
+              this.requestNum = 0
+            }
+          } else {
+            console.log(data.error)
+          }
+
+        })
+      }
+    },
+
+
+    route: {
+      data ({ to }) {
+        this.refreshUser()
+        return {
+          friends: this.friends,
+          requestNum: this.requestNum
+        }
       }
     }
 
@@ -59,4 +86,5 @@
 
 <style lang="stylus">
   @import '~vux/vux.css'
+  @import '../../style.css'
 </style>
