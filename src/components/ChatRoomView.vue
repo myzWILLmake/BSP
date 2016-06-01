@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="header">
-      <x-header>{{person.nickname}}</x-header>
+    <div class="wm-header">
+      <x-header :left-options="{showBack: false}">{{person.nickname}}</x-header>
     </div>
     <div>
       <br />
@@ -148,11 +148,6 @@
 <style lang="stylus">
   @import '~vux/vux.css'
   @import '../style.css'
-
-  #header
-    position fixed
-    top 0
-    width 100%
 
   #send-div
     position fixed

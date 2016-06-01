@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>{{id}}</id>
-
     <router-view
       class="view"
       keep-alive

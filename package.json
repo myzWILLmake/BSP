@@ -39,6 +39,7 @@
     "vue-resource": "^0.7.2",
     "vue-router": "^0.7.5",
     "vux": "^0.0.117",
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6",
+    "vue-awesome": "^0.3.0"
   }
 }

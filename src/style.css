@@ -24,3 +24,9 @@
 .chat-list-item-text {
   margin-right: 30px
 }
+
+.wm-header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div v-for="item in list | orderBy 'last' -1" style="margin: 5px; overflow: hidden;">
+    <div class="wm-header">
+      <x-header :left-options="{showBack: false}">WeMessage</x-header>
+    </div>
+    <br />
+    <br />
+    <div v-for="item in list | orderBy 'last' -1" style="margin: 5px">
       <chats-list-item :id="item._id" :name="item.name" :time="item.last" :text="item.message" :avatar="item.avatar"></chats-list-item>
     </div>
     <br />
@@ -12,6 +17,7 @@
   import Panel from 'vux/components/panel'
   import XButton from 'vux/components/x-button'
   import Scroller from 'vux/components/scroller'
+  import XHeader from 'vux/components/x-header'
 
   import ChatsListItem from './ChatsListItem.vue'
 
@@ -23,18 +29,13 @@
       Panel,
       XButton,
       Scroller,
-      ChatsListItem
+      ChatsListItem,
+      XHeader
     },
 
     data () {
       return {
-        list: [{
-          _id: "574c6bab7ad160b930dc75d4",
-          name: "Yunze",
-          last: new Date().getTime(),
-          message: "TEST!",
-          avatar: "3"
-        }],
+        list: [],
         init: false
       }
     },
@@ -144,4 +145,5 @@
 
 <style lang="stylus">
   @import '~vux/vux.css'
+  @import '../../style.css'
 </style>

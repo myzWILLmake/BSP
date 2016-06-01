@@ -10,6 +10,8 @@ import MainView from './components/MainView/index.vue'
 import Account from './components/MainView/Account.vue'
 import ChatsList from './components/MainView/ChatsList.vue'
 import Contacts from './components/MainView/Contacts.vue'
+import NewFriends from './components/MainView/NewFriends.vue'
+import AddFriend from './components/MainView/AddFriend.vue'
 
 import ChatRoomView from './components/ChatRoomView.vue'
 
@@ -35,16 +37,24 @@ router.map({
         component: ChatsList
       },
       '/contacts': {
-        component: Contacts
+        component: Contacts,
       },
       '/account': {
         component: Account
       }
     }
   },
-  '/chats/:person_id':{
+  '/chats/:person_id': {
     name: 'room',
     component: ChatRoomView
+  },
+  '/add/friend': {
+    name: 'add-friend',
+    component: AddFriend
+  },
+  '/new/friends': {
+    name: 'new-friends',
+    component: NewFriends
   }
 })
 
