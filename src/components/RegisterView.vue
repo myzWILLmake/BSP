@@ -14,10 +14,12 @@
       <selector placeholder="请选择头像" :options="list" :value.sync="avatar"></selector>
     </group>
 
+    <group title="个性签名">
+      <x-textarea :max="30" :value.sync="desc"></x-textarea>
+    </group>
+
     <br />
     <x-button type="primary" @click="doRegister">注册新用户</x-button>
-
-
 
     <toast :show.sync="showSucc">注册成功<br />前往登录页面...</toast>
     <toast :show.sync="showError" type="warn">{{errorInfo}}</toast>
@@ -30,6 +32,7 @@
   import XButton from 'vux/components/x-button'
   import Toast from 'vux/components/toast'
   import Selector from 'vux/components/selector'
+  import XTextarea from 'vux/components/x-textarea'
 
   export default {
 
@@ -40,7 +43,8 @@
       XInput,
       XButton,
       Toast,
-      Selector
+      Selector,
+      XTextarea
     },
 
     data () {
@@ -53,7 +57,8 @@
         showError: false,
         errorInfo: "",
         list:['1', '2', '3', '4', '5', '6', '7', '8', '9', "10"],
-        avatar: '1'
+        avatar: '1',
+        desc: ""
       }
     },
 
@@ -65,7 +70,8 @@
           nickname: this.nickname,
           phone: this.phone,
           avatar: this.avatar,
-          unread: new Object()
+          unread: new Object(),
+          desc: this.desc
         }
       this.$http.post('/register', user).then(function(res) {
           let data = res.data
