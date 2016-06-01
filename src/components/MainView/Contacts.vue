@@ -12,6 +12,11 @@
         </div>
       </cell>
     </group>
+    <div v-for="group in friends">
+      <group>
+        <friend-group :group="group"></friend-group>
+      </group>
+    </div>
   </div>
 </template>
 
@@ -19,6 +24,7 @@
   import XHeader from 'vux/components/x-header'
   import Group from 'vux/components/group'
   import Cell from 'vux/components/cell'
+  import FriendGroup from './FriendGroup.vue'
 
   import Icon from 'vue-awesome'
 
@@ -29,7 +35,8 @@
       XHeader,
       Icon,
       Group,
-      Cell
+      Cell,
+      FriendGroup
     },
 
     data () {

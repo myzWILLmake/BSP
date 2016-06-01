@@ -26,7 +26,7 @@
           <selector title="群组名" :options="groups" :value.sync="selectedGroup"></selector>
         </group>
         <group title="或者新建群组">
-          <x-input title="群组名" :value.sync="newGroupName"></x-input>
+          <x-input title="群组名" :value.sync="newGroupName" :required="false"></x-input>
         </group>
         <group>
           <x-button @click="addNewGroup">添加新群组</x-button>
