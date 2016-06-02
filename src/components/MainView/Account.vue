@@ -3,17 +3,26 @@
     <blur :blur-amount="40" :url="avatarURL">
       <p class="center"><img :src="avatarURL"><br>{{name}}</p>
     </blur>
+    <group>
+      <cell title="修改个人信息" is-link @click="modifyInfo"></cell>
+    </group>
   </div>
 </template>
 
 <script>
   import Blur from 'vux/components/blur'
+  import Group from 'vux/components/group'
+  import Cell from 'vux/components/cell'
+  import XButton from 'vux/components/x-button'
 
   export default {
     name: "account",
 
     components: {
-      Blur
+      Blur,
+      Group,
+      Cell,
+      XButton
     },
 
     computed: {
@@ -24,6 +33,12 @@
       name () {
         let user = window.user
         return user.nickname
+      }
+    },
+
+    methods: {
+      modifyInfo () {
+        this.$route.router.go({path: '/modify'})
       }
     }
   }

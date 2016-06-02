@@ -121,6 +121,27 @@
           }
         }
         return -1
+      },
+
+      addToList(person) {
+        let index = this.findIndex(person._id)
+        if (index == -1) {
+          this.list.push({
+            _id: person._id,
+            name: person.nickname,
+            last: new Date().getTime(),
+            message: " ",
+            avatar: person.avatar
+          })
+        } else {
+          this.list.$set(index, {
+            _id: person._id,
+            name: person.nickname,
+            last: new Date().getTime(),
+            message: " ",
+            avatar: person.avatar
+          })
+        }
       }
 
     },
@@ -133,6 +154,7 @@
           this.initList()
           this.initSocket(this)
           this.init = true
+          window.addToChatList = this.addToList
         }
         return {
           list: this.list,

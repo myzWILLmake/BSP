@@ -3,7 +3,7 @@
     <cell :title="group.name + ' ( ' + group.people.length + ' ) '" @click="togglePeople"></cell>
     <div v-show="showPeople">
       <div v-for="person in people">
-        <person-item :nickname="person.nickname" :desc="preson.desc" :avatar="person.avatar"></person-item>
+        <person-item :nickname="person.nickname" :desc="person.desc" :avatar="person.avatar" @click="openChatRoom(person)"></person-item>
       </div>
     </div>
   </div>
@@ -48,6 +48,10 @@
     methods: {
       togglePeople () {
         this.showPeople = !this.showPeople
+      },
+      openChatRoom (person) {
+        window.addToChatList(person)
+        this.$route.router.go({path: '/chats/' + person._id})
       }
     }
 

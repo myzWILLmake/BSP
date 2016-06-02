@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wm-header">
-      <x-header :left-options="{showBack: false}">{{person.nickname}}</x-header>
+      <x-header>{{person.nickname}}</x-header>
     </div>
     <div>
       <br />

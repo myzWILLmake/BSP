@@ -3,8 +3,6 @@
     <div class="wm-header">
       <x-header :left-options="{showBack: false}">好友<a slot="right" @click="addFriend"><icon name="user-plus"></icon></a></x-header>
     </div>
-    <br />
-    <br />
     <group>
       <cell title="新的朋友" v-show="requestNum != 0" @click="checkRequest">
         <div slot="value">
