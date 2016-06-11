@@ -75,7 +75,7 @@
             let data = res.data
             if (data.succ) {
               window.user = data.data
-              window.socket = io('http://localhost:9000')
+              window.socket = io('http://localhost:10011')
               window.socket.emit('log', {_id: window.user._id})
               this.showSucc = true
               let router = this.$route.router
